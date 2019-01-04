@@ -16,6 +16,9 @@ public class GirlController {
   @Autowired
   private GirlDao girlDao;
 
+  @Autowired
+  private GirlService girlService;
+
   //查询女生列表所有
   @GetMapping(value = "/girls")
   public List<Girl> girlsList() {
@@ -35,7 +38,7 @@ public class GirlController {
   //通过ID查询一个女生
   @GetMapping("/girls/{id}")
   public Girl findGirl(@PathVariable("id") Integer id) {
-    return girlDao.getOne(id);
+    return girlDao.findOne(id);
   }
 
   //更新
@@ -55,7 +58,19 @@ public class GirlController {
   //删除
   @DeleteMapping("/girls/{id}")
   public void deleteGirl(@PathVariable("id") Integer id) {
-    girlDao.deleteById(id);
+    girlDao.delete(id);
+  }
+
+  //通过年龄查询女生列表
+  @GetMapping("/girls/age/{age}")
+  public List<Girl> girlFindListByAge(@PathVariable("age") Integer age) {
+    return girlDao.findByAge(age);
+  }
+
+
+  @PostMapping("/girls/two")
+  public void girlTwo() {
+    girlService.insertTwo();
   }
 
 }
