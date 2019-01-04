@@ -18,9 +18,14 @@ public class GirlService {
     girlDao.save(girlA);
 
     Girl girlB = new Girl();
-    girlB.setCupSize("B");
+    girlB.setCupSize("BBBB");
     girlB.setAge(20);
     girlDao.save(girlB);
+
+    Girl girlC = new Girl();
+    girlC.setCupSize("cccc");
+    girlC.setAge(20);
+    girlDao.save(girlC);
 
 
   }
