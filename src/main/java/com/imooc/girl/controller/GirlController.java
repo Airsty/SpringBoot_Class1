@@ -1,7 +1,12 @@
-package com.imooc.girl;
+package com.imooc.girl.controller;
 
+import com.imooc.girl.domain.Girl;
+import com.imooc.girl.dao.GirlDao;
+import com.imooc.girl.service.GirlService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +32,14 @@ public class GirlController {
 
   //新增一个女生
   @PostMapping(value = "/girls")
-  public Girl girlAdd(@RequestParam("cupSize") String cupSize,
-      @RequestParam("age") Integer age) {
-    Girl girl = new Girl();
-    girl.setAge(age);
-    girl.setCupSize(cupSize);
+  public Girl girlAdd(@Valid Girl girl, BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+      System.out.println(bindingResult.getFieldError().getDefaultMessage());
+      return null;
+    }
+
+    girl.setAge(girl.getAge());
+    girl.setCupSize(girl.getCupSize());
     return girlDao.save(girl);
   }
 
